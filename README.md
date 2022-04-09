@@ -7,6 +7,10 @@ pl:
 ```
 ln -s /opt/cpanel/ea-php81/root/usr/bin/php ./phptorun
 ```
+és csináljunk a composer binárisról is egy symlinket:
+```
+ln -s /opt/cpanel/composer/bin/composer ./composertorun
+```
 ## Mappák:
 
 ├── current -> symlink a legfrisebb deployra
