@@ -1,6 +1,5 @@
 rm -rf deployed
 
-
 #lehúzzuk a legfrisebbet
 cd ./repo
 git fetch --all
@@ -18,9 +17,9 @@ cd ./releases/repo
 
 rm -f ./app/etc/env.php
 rm -f ./app/etc/config.php
-rm -f ./var
-rm -f ./pub/media
-rm -f ./pub/generated
+rm -rf ./var
+rm -rf ./pub/media
+rm -rf ./pub/generated
 
 ln -s ./../../../../shared/app/etc/env.php ./app/etc/env.php
 ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
