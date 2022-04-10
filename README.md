@@ -38,6 +38,8 @@ A linkelt mappák, (=amik nincsenek benne a git repoba, hanem a működés sorá
     ├── session
     └── tmp
 
+Amikor először lehúzzuk a repot a repo mappába (ha nem db másolás van) ott kell egy magento install scriptet futtatni, 
+és az env.php és config.php-t átmásolni a shared mappába
 
 sitemap-ot be lehet állítani adminban, hogy hova generálja
 a robots.txt meg dinamikusan generálódik

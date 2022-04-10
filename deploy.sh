@@ -1,5 +1,12 @@
 rm -rf deployed
 touch start
+cd releases
+
+#ha beragadt esetleg
+rm -rf ./deploying
+# a legújabb 3 releases/ mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
+ls --sort t -r -l | grep -v total | awk '{print $9}' | head -n -3 | xargs rm -rf
+cd ..
 
 # lehúzzuk a legfrisebbet
 cd ./repo
@@ -14,13 +21,14 @@ mv ./../start_git ./../start_git_comp
 # másolás a release mappába
 cd ..
 dir_name=$(date +'%Y%m%d_%H%M%S')
-rm -rf releases/repo/
-#.git mappa kivételével átmásoljuk a lehúzott fájlokat (ez elég lassú lehet a cp és után aa .git mappa törlése jobb lenne)
-rsync -avq --progress ./repo ./releases --exclude .git
+rm -rf releases/deploying
+
+#.git mappa kivételével átmásoljuk a lehúzott fájlokat
+rsync -avq --progress ./repo/ ./releases/deploying --exclude .git
 
 # symlink készítések
 mv ./start_git_comp ./start_git_comp_cp
-cd ./releases/repo
+cd ./releases/deploying
 rm -f ./app/etc/env.php
 rm -f ./app/etc/config.php
 rm -rf ./var
@@ -43,7 +51,7 @@ cd ../..
 mv ./start_git_comp_cp_syml ./start_git_comp_cp_syml_mag
 
 # Élesítjük az aktuális repo mappát
-mv ./releases/repo ./releases/${dir_name}
+mv ./releases/deploying ./releases/${dir_name}
 rm -f ./current
 ln -s ./releases/${dir_name} ./current
 mv ./start_git_comp_cp_syml_mag ./deployed
