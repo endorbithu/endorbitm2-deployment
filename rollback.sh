@@ -1,3 +1,4 @@
+cd ./releases
 backupCount=$(ls -lr | grep -v total | wc -l)
 if [ "$backupCount" -ge "2" ];
 then
