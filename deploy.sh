@@ -5,12 +5,13 @@ cd releases
 
 #ha beragadt esetleg
 rm -rf ./deploying
+echo "----------------------------"
 echo "Removing old deploys..."
 # a legújabb 3 releases/ mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
 ls --sort t -r -l | grep -v total | awk '{print $9}' | head -n -3 | xargs rm -rf
 echo "Removed"
 cd ..
-
+echo "----------------------------"
 echo "git reset --hard origin/main... in ./repo directory..."
 # lehúzzuk a legfrisebbet
 cd ./repo
@@ -23,6 +24,7 @@ mv ./../deploying ./../deploying_git
 # composer
 if [ "$1" != "fast" ]
 then
+  echo "----------------------------"
   echo "composer install..."
   ./../phptorun ./../composertorun install
   echo "composer done"
@@ -35,6 +37,7 @@ mv ./../deploying_git ./../deploying_git_comp
 cd ..
 dir_name=$(date +'%Y%m%d_%H%M%S')
 rm -rf releases/deploying
+echo "----------------------------"
 echo "copying repo directory to releases directory..."
 #.git mappa kivételével átmásoljuk a lehúzott fájlokat
 rsync -avq --progress ./repo/ ./releases/deploying --exclude .git
@@ -54,6 +57,7 @@ ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
 ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
 ln -s ./../../shared/var ./var
+echo "----------------------------"
 echo "symmlinks to shared directory have been created"
 
 rm -f ./../../deploying_git_comp_cp_syml
@@ -62,6 +66,7 @@ mv ./../../deploying_git_comp_cp ./../../deploying_git_comp_cp_syml
 # Magento deploy műveletek, ha nincsen -fast paraméter
 if [ "$1" != "fast" ]
 then
+  echo "----------------------------"
   echo "Magento deploy operations running..."
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:flush
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
@@ -76,9 +81,13 @@ mv ./deploying_git_comp_cp_syml ./deploying_git_comp_cp_syml_magentodeploy
 
 # Élesítjük az aktuális repo mappát
 mv ./releases/deploying ./releases/${dir_name}
+echo "----------------------------"
 echo "releases/deploying directory has been renamed to ${dir_name}"
 
 rm -f ./current
 ln -s ./releases/${dir_name} ./current
 mv ./deploying_git_comp_cp_syml_magentodeploy ./deploying_deployed
+echo "----------------------------"
 echo "DEPLOYED"
+echo "----------------------------"
+
