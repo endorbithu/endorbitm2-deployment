@@ -8,7 +8,8 @@ then
   rm -f ./current
   ln -s ./releases/${rollback_dir} ./current
   echo "ROLLBACKED"
-  echo "DELETE NEWEST DEPLOY"
+  echo "REMOVING NEWEST DEPLOY..."
+  echo "REMOVED..."
   cd ./releases
   # törli a legújabb mappát a releases-ben
   ls --sort t -l | grep -v total | awk '{print $9}' | head -n 1 | xargs rm -rf
