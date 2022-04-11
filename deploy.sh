@@ -46,7 +46,7 @@ mv ./../../start_git_comp_cp ./../../start_git_comp_cp_syml
 ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
 ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
-./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy
+./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
 cd ../..
 mv ./start_git_comp_cp_syml ./start_git_comp_cp_syml_mag
 
