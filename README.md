@@ -43,3 +43,6 @@ Amikor először lehúzzuk a repot a repo mappába (ha nem db másolás van) ott
 
 sitemap-ot be lehet állítani adminban, hogy hova generálja
 a robots.txt meg dinamikusan generálódik
+
+./deploy fast => kihagyja a composer install-t és  magentos deploy műveleteket, 
+

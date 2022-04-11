@@ -1,4 +1,5 @@
-rm -rf deployed
+rm -f deployed
+rm -f start
 touch start
 cd releases
 
@@ -12,10 +13,17 @@ cd ..
 cd ./repo
 git fetch --all
 git reset --hard origin/main
+
+rm -f ./../start_git
 mv ./../start ./../start_git
 
 # composer
-./../phptorun ./../composertorun install
+if [ $1 != "fast" ]
+then
+  ./../phptorun ./../composertorun install
+fi
+
+rm -f ./../start_git_comp
 mv ./../start_git ./../start_git_comp
 
 # másolás a release mappába
@@ -27,6 +35,7 @@ rm -rf releases/deploying
 rsync -avq --progress ./repo/ ./releases/deploying --exclude .git
 
 # symlink készítések
+rm -f ./start_git_comp_cp
 mv ./start_git_comp ./start_git_comp_cp
 cd ./releases/deploying
 rm -f ./app/etc/env.php
@@ -39,6 +48,8 @@ ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
 ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
 ln -s ./../../shared/var ./var
+
+rm -f ./../../start_git_comp_cp_syml
 mv ./../../start_git_comp_cp ./../../start_git_comp_cp_syml
 
 # Magento deploy műveletek, ha nincsen -fast paraméter
@@ -51,6 +62,7 @@ then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
 fi
 cd ../..
+rm -f ./start_git_comp_cp_syml_mag
 mv ./start_git_comp_cp_syml ./start_git_comp_cp_syml_mag
 
 # Élesítjük az aktuális repo mappát
