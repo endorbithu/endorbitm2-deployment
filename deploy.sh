@@ -1,27 +1,25 @@
-rm -f deploying_deployed
-rm -f deploying
-touch deploying
-cd releases
+cd ./releases
 
-#ha beragadt esetleg
-rm -rf ./deploying
-echo "----------------------------"
-echo "Removing old deploys..."
 # a legújabb 3 releases/ mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
+echo "----------------------------"
+rm -rf ./deploying
+echo "Removing old deploys..."
 ls --sort t -r -l | grep -v total | awk '{print $9}' | head -n -3 | xargs rm -rf
 echo "Removed"
-cd ..
+
+
+# lehúzzuk a gitből a frissításeket
 echo "----------------------------"
-echo "git reset --hard origin/main... in ./repo directory..."
-# lehúzzuk a legfrisebbet
+cd ..
 cd ./repo
+echo "git reset --hard origin/main in ./repo directory..."
 git fetch --all
 git reset --hard origin/main
-echo "Git updated"
-rm -f ./../deploying_git
-mv ./../deploying ./../deploying_git
+echo "Git repo updated"
 
-# composer
+
+
+# composer, (ha nincs "fast" argument)
 if [ "$1" != "fast" ]
 then
   echo "----------------------------"
@@ -30,22 +28,19 @@ then
   echo "composer done"
 fi
 
-rm -f ./../deploying_git_comp
-mv ./../deploying_git ./../deploying_git_comp
 
-# másolás a release mappába
+# másolás a releases mappába a frissített repot mint deploying mappa
+echo "----------------------------"
 cd ..
 dir_name=$(date +'%Y%m%d_%H%M%S')
-rm -rf releases/deploying
-echo "----------------------------"
-echo "copying repo directory to releases directory..."
+echo "Copying ./repo directory to ./releases directory as ./releases/deploying..."
 #.git mappa kivételével átmásoljuk a lehúzott fájlokat
 rsync -avq --progress ./repo/ ./releases/deploying --exclude .git
-echo "copied"
+echo "Copied"
 
-# symlink készítések
-rm -f ./deploying_git_comp_cp
-mv ./deploying_git_comp ./deploying_git_comp_cp
+
+# symlinkek készítések
+echo "----------------------------"
 cd ./releases/deploying
 rm -f ./app/etc/env.php
 rm -f ./app/etc/config.php
@@ -57,13 +52,11 @@ ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
 ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
 ln -s ./../../shared/var ./var
-echo "----------------------------"
-echo "symmlinks to shared directory have been created"
+echo "Symmlinks to ./shared/.. files/directories have been created"
 
-rm -f ./../../deploying_git_comp_cp_syml
-mv ./../../deploying_git_comp_cp ./../../deploying_git_comp_cp_syml
 
-# Magento deploy műveletek, ha nincsen -fast paraméter
+
+# Magento deploy műveletek (ha nincsen "fast" argument)
 if [ "$1" != "fast" ]
 then
   echo "----------------------------"
@@ -76,18 +69,19 @@ then
   echo "Magento done"
 fi
 cd ../..
-rm -f ./deploying_git_comp_cp_syml_magentodeploy
-mv ./deploying_git_comp_cp_syml ./deploying_git_comp_cp_syml_magentodeploy
 
-# Élesítjük az aktuális repo mappát
-mv ./releases/deploying ./releases/${dir_name}
+# Élesítjük az aktuális ./releases/${dir_name} mappát
 echo "----------------------------"
-echo "releases/deploying directory has been renamed to ${dir_name}"
-
+mv ./releases/deploying ./releases/${dir_name}
+echo "./releases/deploying directory has been renamed to ${dir_name}"
 rm -f ./current
 ln -s ./releases/${dir_name} ./current
-mv ./deploying_git_comp_cp_syml_magentodeploy ./deploying_deployed
+echo "./current symlink has been attached to ./releases/${dir_name} directory"
+echo "----------------------------"
+echo "----------------------------"
 echo "----------------------------"
 echo "DEPLOYED"
+echo "----------------------------"
+echo "----------------------------"
 echo "----------------------------"
 
