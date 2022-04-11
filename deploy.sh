@@ -5,27 +5,27 @@ cd releases
 
 #ha beragadt esetleg
 rm -rf ./deploying
-echo "Removing old deploys\n"
+echo "Removing old deploys..."
 # a legújabb 3 releases/ mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
 ls --sort t -r -l | grep -v total | awk '{print $9}' | head -n -3 | xargs rm -rf
-echo "Removed\n"
+echo "Removed"
 cd ..
 
-echo "git reset --hard origin/main... \n"
+echo "git reset --hard origin/main... in ./repo directory..."
 # lehúzzuk a legfrisebbet
 cd ./repo
 git fetch --all
 git reset --hard origin/main
-echo "git updated \n"
+echo "Git updated"
 rm -f ./../deploying_git
 mv ./../deploying ./../deploying_git
 
 # composer
-if [ $1 != "fast" ]
+if [ "$1" != "fast" ]
 then
-  echo "composer install...\n"
+  echo "composer install..."
   ./../phptorun ./../composertorun install
-  echo "composer done\n"
+  echo "composer done"
 fi
 
 rm -f ./../deploying_git_comp
@@ -35,10 +35,10 @@ mv ./../deploying_git ./../deploying_git_comp
 cd ..
 dir_name=$(date +'%Y%m%d_%H%M%S')
 rm -rf releases/deploying
-echo "copying repo directory to releases directory...\n"
+echo "copying repo directory to releases directory..."
 #.git mappa kivételével átmásoljuk a lehúzott fájlokat
 rsync -avq --progress ./repo/ ./releases/deploying --exclude .git
-echo "copied\n"
+echo "copied"
 
 # symlink készítések
 rm -f ./deploying_git_comp_cp
@@ -54,21 +54,21 @@ ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
 ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
 ln -s ./../../shared/var ./var
-echo "symmlinks to shared directory have been created\n"
+echo "symmlinks to shared directory have been created"
 
 rm -f ./../../deploying_git_comp_cp_syml
 mv ./../../deploying_git_comp_cp ./../../deploying_git_comp_cp_syml
 
 # Magento deploy műveletek, ha nincsen -fast paraméter
-if [ $1 != "fast" ]
+if [ "$1" != "fast" ]
 then
-  echo "Magento deploy operations running...\n"
+  echo "Magento deploy operations running..."
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:flush
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
-  echo "Magento done\n"
+  echo "Magento done"
 fi
 cd ../..
 rm -f ./deploying_git_comp_cp_syml_magentodeploy
@@ -81,4 +81,4 @@ echo "releases/deploying directory has been renamed to ${dir_name}"
 rm -f ./current
 ln -s ./releases/${dir_name} ./current
 mv ./deploying_git_comp_cp_syml_magentodeploy ./deploying_deployed
-echo "DEPLOYED\n"
+echo "DEPLOYED"
