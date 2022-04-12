@@ -14,7 +14,7 @@ ln -s /opt/cpanel/composer/bin/composer ./composertorun
 
 ## Futtatás
 ### Deploy
-Egyszerre 4db deploy-t hagy meg, minden deploynál törli a legrégebbit. 
+Egyszerre 4db deploy-t hagy meg, minden deploynál törli a legrégebbit.  
 (További részletek lsd. fájlban a commentek)  
  
 ```
@@ -34,11 +34,11 @@ $ ./rollback.sh
 ├── releases - az utolsó 4db deploy
 │   └── 20220410_211122
 ├── repo -> git repo
-└── shared -> this is a permanent directory that contains the files/directories referenced by 
+└── shared -> symlinkelt fájlok/mappák 
 ```
 
 ## Linkelt fájlok/mappák
-A linkelt mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a shared mappában vannak:
+A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a shared mappában vannak. A var
 ```
 ├── app
 │   └── etc
@@ -48,13 +48,6 @@ A linkelt mappák, (=amik nincsenek benne a git repoba, hanem a működés sorá
 │   ├── media
 │   └── generated -> ide kell beállítani az összes generált cuccot, feed sitemap stb
 └── var
-    ├── backups
-    ├── composer_home
-    ├── importexport
-    ├── import_history
-    ├── log
-    ├── session
-    └── tmp
 ```
 Amikor először lehúzzuk a repot a ./repo mappába (ha nem db másolás van) ott kell egy `bin/magento install...` scriptet futtatni, 
 és az env.php és config.php-t átmásolni a shared mappába.  
