@@ -21,7 +21,7 @@ Clone-ozás után (ha nem db másolás van) kell egy `bin/magento install...` sc
 ```
 ├── current -> symlink a legfrisebb deployra
 ├── releases - az utolsó 4db deploy
-│   └── 20220410_211122
+│   └── 20220410_211122_d5f224798e -> deployhoz tartozó commit rövid hash-je a végén
 ├── repo -> git repo
 └── shared -> symlinkelt fájlok/mappák 
 ```
