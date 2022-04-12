@@ -40,7 +40,7 @@ A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működ�
 ```
  
 - sitemap-ot be lehet állítani magento adminban, hogy hova generálja
-- a robots.txt meg dinamikusan generálódik, ott be lehet állítani, hogy a sitemap fájlokat hol keresse.
+- a robots.txt meg dinamikusan generálódik, itt nem kell vele foglalkozni.
 
 
 ## Futtatás
