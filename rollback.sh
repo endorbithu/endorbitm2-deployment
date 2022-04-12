@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 cd ./releases
 releaseCount=$(ls -lr | grep -v total | wc -l)
 if [ "$releaseCount" -ge "2" ];

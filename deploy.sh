@@ -1,7 +1,10 @@
-cd ./releases
+#!/bin/bash
+set -e
 
-# a legújabb 3 releases/ mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
+
+# a legújabb 3 releases/{datetime} mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
 echo "----------------------------"
+cd ./releases
 rm -rf ./deploying
 echo "Removing old deploys..."
 ls --sort t -r -l | grep -v total | awk '{print $9}' | head -n -3 | xargs rm -rf
