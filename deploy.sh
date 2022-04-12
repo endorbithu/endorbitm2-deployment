@@ -61,10 +61,12 @@ if [ "$1" != "fast" ]
 then
   echo "----------------------------"
   echo "Magento deploy operations running..."
+  php -dmemory_limit=-1 ./bin/magento cache:flush
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:flush
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
+  ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
   echo "Magento done"
 fi
