@@ -18,6 +18,10 @@ cd ./repo
 echo "git reset --hard origin/main in ./repo directory..."
 git fetch --all
 git reset --hard origin/main
+
+git_hash=$(git rev-parse --short HEAD)
+dir_datetime=$(date +'%Y%m%d_%H%M%S')
+dir_name="${dir_datetime}_${git_hash}"
 echo "Git repo updated"
 
 
@@ -35,7 +39,6 @@ fi
 # másolás a releases mappába a frissített repot mint deploying mappa
 echo "----------------------------"
 cd ..
-dir_name=$(date +'%Y%m%d_%H%M%S')
 echo "Copying ./repo directory to ./releases directory as ./releases/deploying..."
 #.git mappa kivételével átmásoljuk a lehúzott fájlokat
 rsync -avq --progress ./repo/ ./releases/deploying --exclude .git
