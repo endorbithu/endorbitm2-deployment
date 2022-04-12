@@ -11,22 +11,11 @@ ln -s /opt/cpanel/ea-php81/root/usr/bin/php ./phptorun
 ```
 ln -s /opt/cpanel/composer/bin/composer ./composertorun
 ```
+## Git repo beállítása
+`./repo` mappában kell clone-oznunk a git repot.  
+Clone-ozás után (ha nem db másolás van) kell egy `bin/magento install...` scriptet futtatni, 
+és az env.php és config.php-t átmásolni a shared mappába. 
 
-## Futtatás
-### Deploy
-Egyszerre 4db deploy-t hagy meg, minden deploynál törli a legrégebbit.  
-(További részletek lsd. fájlban a commentek)  
- 
-```
-$ ./deploy.sh 
-```
-
-### Rollback
-Az utolsó előtti deploy-ra rollback-kel (ha van minimum 2db deploy), és törli is az utolsó deploy-t.  
-(További részletek lsd. fájlban a commentek)  
-```
-$ ./rollback.sh 
-```
 
 ## Mappák:
 ```
@@ -49,14 +38,31 @@ A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működ�
 │   └── generated -> ide kell beállítani az összes generált cuccot, feed sitemap stb
 └── var
 ```
-Amikor először lehúzzuk a repot a ./repo mappába (ha nem db másolás van) ott kell egy `bin/magento install...` scriptet futtatni, 
-és az env.php és config.php-t átmásolni a shared mappába.  
+ 
+- sitemap-ot be lehet állítani magento adminban, hogy hova generálja
+- a robots.txt meg dinamikusan generálódik, ott be lehet állítani, hogy a sitemap fájlokat hol keresse.
 
-- sitemap-ot be lehet állítani adminban, hogy hova generálja
-- a robots.txt meg dinamikusan generálódik
 
-## Gyors deploy (cache törlés, fordítást stb nem igénylő módosításnál)
+## Futtatás
+Ha készen áll a repo, és az env.php, config.php.
+### Teljes deploy
+Egyszerre 4db deploy-t hagy meg, minden deploynál törli a legrégebbit.  
+(További részletek lsd. fájlban a commentek)  
+ 
+```
+$ ./deploy.sh 
+```
+### Gyors deploy (cache törlés, fordítást stb nem igénylő módosításnál)
 kihagyja a composer install-t és  magentos deploy műveleteket  
 ```
 $ ./deploy fast
 ```
+
+### Rollback
+Az utolsó előtti deploy-ra rollback-kel (ha van minimum 2db deploy), és törli is az utolsó deploy-t.  
+(További részletek lsd. fájlban a commentek)  
+```
+$ ./rollback.sh 
+```
+
+
