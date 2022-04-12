@@ -31,14 +31,13 @@ $ ./rollback.sh
 ## Mappák:
 ```
 ├── current -> symlink a legfrisebb deployra
-├── releases - az utolsó 5db deploy
+├── releases - az utolsó 4db deploy
 │   └── 20220410_211122
-├── repo - this is a bare clone of your Git repository
-├── revisions.log - a line for each release with the commit hash, release date, and username of the machine that deployed
+├── repo -> git repo
 └── shared -> this is a permanent directory that contains the files/directories referenced by 
 ```
 
-## Linkelt mappák
+## Linkelt fájlok/mappák
 A linkelt mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a shared mappában vannak:
 ```
 ├── app
@@ -47,7 +46,7 @@ A linkelt mappák, (=amik nincsenek benne a git repoba, hanem a működés sorá
 │       └── env.php
 ├── pub
 │   ├── media
-│   └── generated -> ide megy az összes generált cucc, feed sitemap stb
+│   └── generated -> ide kell beállítani az összes generált cuccot, feed sitemap stb
 └── var
     ├── backups
     ├── composer_home
@@ -57,7 +56,7 @@ A linkelt mappák, (=amik nincsenek benne a git repoba, hanem a működés sorá
     ├── session
     └── tmp
 ```
-Amikor először lehúzzuk a repot a repo mappába (ha nem db másolás van) ott kell egy `bin/magento install...` scriptet futtatni, 
+Amikor először lehúzzuk a repot a ./repo mappába (ha nem db másolás van) ott kell egy `bin/magento install...` scriptet futtatni, 
 és az env.php és config.php-t átmásolni a shared mappába.  
 
 - sitemap-ot be lehet állítani adminban, hogy hova generálja
