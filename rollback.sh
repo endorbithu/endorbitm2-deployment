@@ -20,7 +20,10 @@ then
   echo "Removing dirty (newest) deploy..."
   cd ./releases
   # törli a legújabb mappát a releases-ben
-  ls --sort t -l | grep -v total | awk '{print $9}' | head -n 1 | xargs rm -rf
+  #ls --sort t -l | grep -v total | awk '{print $9}' | head -n 1 | xargs rm -rf
+  failed_dir=$(ls --sort t -l | grep -v total | awk '{print $9}' | head -n 1)
+  mv ./${failed_dir} ./failed
+  rm -rf ./failed
   echo "Removed"
   echo "----------------------------"
   echo "Done"
