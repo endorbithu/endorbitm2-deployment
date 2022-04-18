@@ -24,7 +24,7 @@ git reset --hard origin/main
 git_hash=$(git rev-parse --short HEAD)
 dir_datetime=$(date +'%Y%m%d_%H%M%S')
 dir_name="${dir_datetime}_${git_hash}"
-echo "Git repo updated"
+echo "Git repo has been updated"
 
 
 
@@ -75,7 +75,7 @@ then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
-  echo "Magento done"
+  echo "Magento deploy operations has been finished"
 fi
 cd ../..
 
