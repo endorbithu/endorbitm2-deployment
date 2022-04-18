@@ -8,7 +8,7 @@ cd ./releases
 rm -rf ./deploying
 #rollbacknél erre nevezi át a hibásat, és ha esetleg nem lett törölve
 rm -rf ./failed
-echo "Removing old deploys..."
+echo "Removing old releases..."
 ls --sort t -r -l | grep -v total | awk '{print $9}' | head -n -3 | xargs rm -rf
 echo "Removed"
 
@@ -89,7 +89,7 @@ echo "./current symlink has been attached to ./releases/${dir_name} directory"
 echo "----------------------------"
 echo "----------------------------"
 echo "----------------------------"
-echo "DEPLOYED"
+echo "DEPLOYED SUCCESSFULLY"
 echo "----------------------------"
 echo "----------------------------"
 echo "----------------------------"

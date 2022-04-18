@@ -1,4 +1,4 @@
-# endorbitm2-deployment
+# Endorbit Magento 2 Deployment
 
 ## PHP beállítása
 
@@ -19,15 +19,15 @@ Clone-ozás után (ha nem db másolás van) kell egy `bin/magento install...` sc
 
 ## Mappák:
 ```
-├── current -> symlink a legfrisebb deployra
-├── releases - az utolsó 4db deploy
-│   └── 20220410_211122_d5f224798e -> deployhoz tartozó commit rövid hash-je a végén
+├── current -> symlink a legfrisebb release-re
+├── releases - az utolsó 4db release
+│   └── 20220410_211122_d5f224798e -> release-hez tartozó commit rövid hash-je a végén
 ├── repo -> git repo
 └── shared -> symlinkelt fájlok/mappák 
 ```
 
 ## Linkelt fájlok/mappák
-A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a shared mappában vannak. A var
+A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a shared mappában vannak.
 ```
 ├── app
 │   └── etc
@@ -45,21 +45,21 @@ A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működ�
 
 ## Futtatás
 Ha készen áll a repo, és az env.php, config.php.
-### Teljes deploy
-Egyszerre 4db deploy-t hagy meg, minden deploynál törli a legrégebbit.  
+### Teljes deployment
+Egyszerre 4db release-t hagy meg, minden release-nél törli a legrégebbit.  
 (További részletek lsd. fájlban a commentek)  
  
 ```
 $ ./deploy.sh 
 ```
-### Gyors deploy (cache törlés, fordítást stb nem igénylő módosításnál)
+### Gyors deployment (cache törlés, fordítást stb nem igénylő módosításnál)
 kihagyja a composer install-t és  magentos deploy műveleteket  
 ```
 $ ./deploy fast
 ```
 
 ### Rollback
-Az utolsó előtti deploy-ra rollback-kel (ha van minimum 2db deploy), és törli is az utolsó deploy-t.  
+Az utolsó előtti release-re rollback-kel (ha van minimum 2db release), és törli is az utolsó release-t.  
 (További részletek lsd. fájlban a commentek)  
 ```
 $ ./rollback.sh 
