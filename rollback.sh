@@ -26,8 +26,8 @@ then
   failed_dir=$(ls --sort t -l | grep -v total | awk '{print $9}' | head -n 1)
   mv ./${failed_dir} ./failed
   rm -rf ./failed
-  echo "Removed failed release
+  echo "FAILED RELEASE HAS BEEN REMOVED"
   echo "----------------------------"
-  echo "Done"
+  echo "DONE"
   echo "----------------------------"
 fi
