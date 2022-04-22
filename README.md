@@ -1,4 +1,5 @@
-# Endorbit Magento 2 Deployment
+# Magcdento 2 Deployment
+Szünetmentes Magento 2 deployment / rollbacking
 
 ## PHP beállítása
 
