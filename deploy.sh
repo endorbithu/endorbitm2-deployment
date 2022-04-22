@@ -51,6 +51,8 @@ ln -s ./../../../../shared/app/etc/env.php ./app/etc/env.php
 ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
 ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
+#rm -rf ./var
+#ln -s ./../../shared/var ./var
 
 echo "Symmlinks to ./shared/.. files/directories have been created"
 
@@ -69,11 +71,8 @@ fi
 
 cd ./../../shared/var
 for d in */; do
-  ln -s ./${d} ./../../releases/deploying/var/${d}
+  ln -s ./${d} ./../../releases/deploying/var/
 done
-
-#rm -rf ./var
-#ln -s ./../../shared/var ./var
 
 cd ../..
 
