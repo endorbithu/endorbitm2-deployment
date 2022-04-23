@@ -11,7 +11,16 @@ if [ "$releaseCount" -ge "2" ]; then
   cd ..
   rm -f ./current
   ln -s ./releases/${rollback_dir} ./current
-  ./phptorun -dmemory_limit=-1 ./current/bin/magento cache:flush
+
+  #ha nincs fast flag megadva
+  if [ "$1" != "fast" ]; then
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
+  fi
 
   echo "----------------------------"
   echo "----------------------------"
