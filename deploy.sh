@@ -88,14 +88,15 @@ cd ../..
 
 #a generált var/.. mappákat alkalmazzuk, ha nem fast
 if [ "$1" != "fast" ]; then
+
   cd ./releases/deploying
   cp ./var/.htaccess ./../../shared/var/.htaccess_deploying
   cp ./var/.regenerate.lock ./../../shared/var/.regenerate.lock_deploying
-  cp ./var/cache ./../../shared/var/cache_deploying
-  cp ./var/composer_home ./../../shared/var/composer_home_deploying
-  cp ./var/page_cache ./../../shared/var/page_cache_deploying
-  cp ./var/vendor ./../../shared/var/vendor_deploying
-  cp ./var/view_preprocessed ./../../shared/var/view_preprocessed_deploying
+  cp -r ./var/cache ./../../shared/var/cache_deploying
+  cp -r ./var/composer_home ./../../shared/var/composer_home_deploying
+  cp -r ./var/page_cache ./../../shared/var/page_cache_deploying
+  cp -r ./var/vendor ./../../shared/var/vendor_deploying
+  cp -r ./var/view_preprocessed ./../../shared/var/view_preprocessed_deploying
 
   cd ./../../shared/var
   mv ./.htaccess ./.htaccess_removing
