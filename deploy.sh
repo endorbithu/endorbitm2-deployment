@@ -97,9 +97,6 @@ if [ "$1" != "fast" ]; then
   cp ./var/vendor ./../../shared/var/vendor_deploying
   cp ./var/view_preprocessed ./../../shared/var/view_preprocessed_deploying
 
-  rm -rf ./var
-  ln -s ./../../shared/var ./var
-
   cd ./../../shared/var
   mv ./.htaccess ./.htaccess_removing
   mv ./.htaccess_deploying ./.htaccess
@@ -123,6 +120,11 @@ if [ "$1" != "fast" ]; then
   mv ./view_preprocessed_deploying ./view_preprocessed
   cd ../..
 fi
+
+cd ./releases/deploying
+rm -rf ./var
+ln -s ./../../shared/var ./var
+cd ../..
 
 # Élesítjük az aktuális ./releases/${dir_name} mappát
 echo "----------------------------"
