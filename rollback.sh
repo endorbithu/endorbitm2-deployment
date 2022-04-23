@@ -14,12 +14,14 @@ if [ "$releaseCount" -ge "2" ]; then
 
   #ha nincs fast flag megadva
   if [ "$1" != "fast" ]; then
+    cd ./current
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
     ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
+    cd ..
   fi
 
   echo "----------------------------"
