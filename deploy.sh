@@ -78,8 +78,6 @@ if [ "$1" != "fast" ]; then
   echo "Magento deploy operations running..."
   #azért kell kikapcsolni, mert pl redis él közös sorage-ből menne az aktuálisan éles releas-zel, és emiatt eltörhet az éles
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:disable
-  #./../../phptorun -dmemory_limit=-1 ./bin/magento cache:flush
-  #./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
