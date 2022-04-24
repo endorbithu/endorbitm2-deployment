@@ -1,6 +1,6 @@
 #!/bin/bash
+start=`date +%s`
 set -e
-
 # a legújabb 3 releases/{datetime} mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
 echo "----------------------------"
 cd ./releases
@@ -86,3 +86,6 @@ echo "DEPLOYED SUCCESSFULLY (${git_hash})"
 echo "----------------------------"
 echo "----------------------------"
 echo "----------------------------"
+end=`date +%s`
+runtime=$((end-start))
+echo "$(runtime) sec"

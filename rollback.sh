@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+start=`date +%s`
 cd ./releases
 #ha nem lett valamiért törölve a ./failed mappa, azt mindenképp törölni kell, mert különben hozzáadj aa meglévő release számhoz
 rm -rf ./failed
@@ -48,4 +49,7 @@ if [ "$releaseCount" -ge "2" ]; then
   echo "----------------------------"
   echo "DONE"
   echo "----------------------------"
+  end=`date +%s`
+  runtime=$((end-start))
+  echo "$(runtime) sec"
 fi
