@@ -19,8 +19,9 @@ if [ "$releaseCount" -ge "2" ]; then
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
     ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
-    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
-    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
+    # ezek a release-ben generálódtak elvileg, így megvannak
+    #./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
+    #./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
     echo "Magento operations have been finished"
 
