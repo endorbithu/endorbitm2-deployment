@@ -23,10 +23,11 @@ if [ "$releaseCount" -ge "2" ]; then
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
     echo "Magento operations have been finished"
-
     cd ..
   else
+    cd ./current
     ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
+    cd ..
   fi
 
   echo "----------------------------"
