@@ -90,5 +90,5 @@ echo "----------------------------"
 echo "----------------------------"
 echo "----------------------------"
 end=$(date +%s)
-echo Deployment: `expr $end - $start` sec
-echo Downtime: `expr $dtend - $dtstart` sec
+echo Deployment: $(expr $end - $start) sec
+echo Downtime: $(expr $dtend - $dtstart) sec
