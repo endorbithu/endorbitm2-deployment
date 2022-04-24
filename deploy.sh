@@ -1,6 +1,6 @@
 #!/bin/bash
-
 set -e
+start=$(date +%s)
 # a legújabb 3 releases/{datetime} mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
 echo "----------------------------"
 cd ./releases
