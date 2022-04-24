@@ -22,6 +22,9 @@ git reset --hard origin/main
 git_hash=$(git rev-parse --short HEAD)
 dir_datetime=$(date +'%Y%m%d_%H%M%S')
 dir_name="${dir_datetime}_${git_hash}"
+if [ "$1" == "fast" ]; then
+  dir_name="${dir_name}_fast"
+fi
 echo "Git repo has been updated"
 
 # composer, (ha nincs "fast" argument)
