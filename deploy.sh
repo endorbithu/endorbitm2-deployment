@@ -44,12 +44,10 @@ echo "Copied"
 echo "----------------------------"
 cd ./releases/deploying
 rm -f ./app/etc/env.php
-rm -f ./app/etc/config.php
 rm -rf ./var
 rm -rf ./pub/media
 rm -rf ./pub/generated
 ln -s ./../../../../shared/app/etc/env.php ./app/etc/env.php
-ln -s ./../../../../shared/app/etc/config.php ./app/etc/config.php
 ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
 ln -s ./../../shared/var ./var
@@ -58,14 +56,14 @@ echo "Symmlinks to ./shared/.. files/directories have been created"
 # Magento deploy műveletek (ha nincsen "fast" argument)
 if [ "$1" != "fast" ]; then
   echo "----------------------------"
-  echo "Magento deploy operations running..."
+  echo "Magento operations are running..."
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
-  echo "Magento deploy operations has been finished"
+  echo "Magento operations have been finished"
 fi
 cd ../..
 
