@@ -25,6 +25,8 @@ if [ "$releaseCount" -ge "2" ]; then
     echo "Magento operations have been finished"
 
     cd ..
+  else
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
   fi
 
   echo "----------------------------"

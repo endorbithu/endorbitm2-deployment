@@ -67,6 +67,8 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
   echo "Magento operations have been finished"
+else
+  ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 fi
 cd ../..
 
