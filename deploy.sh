@@ -1,5 +1,5 @@
 #!/bin/bash
-start=`date +%s`
+
 set -e
 # a legújabb 3 releases/{datetime} mappa kivételével töröljük a releaseket (ha nincs 3-nál több, akkor nem töröl semmit)
 echo "----------------------------"
@@ -55,17 +55,20 @@ ln -s ./../../../shared/pub/generated ./pub/generated
 ln -s ./../../../shared/pub/media ./pub/media
 ln -s ./../../shared/var ./var
 echo "Symmlinks to ./shared/.. files/directories have been created"
-
+dtstart=0
+dtend=0
 # Magento deploy műveletek (ha nincsen "fast" argument)
 if [ "$1" != "fast" ]; then
   echo "----------------------------"
   echo "Magento operations are running..."
+  dtstart=$(date +%s)
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
+  dtend=$(date +%s)
   echo "Magento operations have been finished"
 else
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
@@ -86,6 +89,8 @@ echo "DEPLOYED SUCCESSFULLY (${dir_name})"
 echo "----------------------------"
 echo "----------------------------"
 echo "----------------------------"
-end=`date +%s`
-runtime=$((end-start))
-echo "$(runtime) sec"
+end=$(date +%s)
+run_time=$((end - start))
+dt_run_time=$((dtend - dtstart))
+echo "Deployment: $(run_time) sec"
+echo "Downtime: $(dt_run_time) sec"

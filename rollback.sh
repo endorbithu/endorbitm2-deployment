@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-start=`date +%s`
+start=$(date +%s)
 cd ./releases
 #ha nem lett valamiért törölve a ./failed mappa, azt mindenképp törölni kell, mert különben hozzáadj aa meglévő release számhoz
 rm -rf ./failed
@@ -12,17 +12,20 @@ if [ "$releaseCount" -ge "2" ]; then
   cd ..
   rm -f ./current
   ln -s ./releases/${rollback_dir} ./current
-
+  dtstart=0
+  dtend=0
   fast='_fast'
   if [[ "$rollback_dir" != *"$fast" ]]; then
     echo "Magento operations are running..."
     cd ./current
+    dtstart=$(date +%s)
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
     ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
     ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
+    dtend=$(date +%s)
     echo "Magento operations have been finished"
     cd ..
   else
@@ -49,7 +52,9 @@ if [ "$releaseCount" -ge "2" ]; then
   echo "----------------------------"
   echo "DONE"
   echo "----------------------------"
-  end=`date +%s`
-  runtime=$((end-start))
-  echo "$(runtime) sec"
+  end=$(date +%s)
+  run_time=$((end - start))
+  dt_run_time=$((dtend - dtstart))
+  echo "Deployment: $(run_time) sec"
+  echo "Downtime: $(dt_run_time) sec"
 fi
