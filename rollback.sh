@@ -53,8 +53,6 @@ if [ "$releaseCount" -ge "2" ]; then
   echo "DONE"
   echo "----------------------------"
   end=$(date +%s)
-  runtime="$((end - start))"
-  dt_run_time="$((dtend - dtstart))"
-  echo "Deployment: $(run_time) sec"
-  echo "Downtime: $(dt_run_time) sec"
+  echo Deployment: $(expr $end - $start) sec
+  echo Downtime: $(expr $dtend - $dtstart) sec
 fi
