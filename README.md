@@ -1,6 +1,6 @@
-# Magcdento 2 Deployment
+# Magento 2 Deployment
 
-Szünetmentes Magento 2 deployment / rollbacking
+agento 2 deployment / rollbacking
 
 ## PHP beállítása
 
@@ -70,9 +70,9 @@ Egyszerre 4db release-t hagy meg, minden release-nél törli a legrégebbit.
 $ ./deploy.sh 
 ```
 
-### Gyors deployment (magentos deploy műveleteket nem igénylő módosításnál)
+### Gyors deployment (magentos db és deploy műveleteket nem igénylő módosításnál)
 
-kihagyja a composer install-t és magentos deploy műveleteket
+kihagyja a composer install-t és magentos db és deploy műveleteket
 
 ```
 $ ./deploy.sh fast
@@ -87,9 +87,9 @@ Az utolsó előtti release-re rollback-kel (ha van minimum 2db release), és tö
 $ ./rollback.sh 
 ```
 
-### Gyors rollback (magentos deploy műveleteket nem igénylő módosításnál)
+### Gyors rollback (magentos db és deploy műveleteket nem igénylő módosításnál)
 
-kihagyja a composer install-t és magentos deploy műveleteket
+kihagyja a composer install-t és magentos db és deploy műveleteket
 
 ```
 $ ./rollback.sh fast
