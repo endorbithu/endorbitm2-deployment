@@ -1,4 +1,6 @@
 #!/bin/bash
+#TODO: ha bármilyen upgradeSchema UpgradeData változás van, annál nem lehet rollbackelni, mert a schemát is vissza kéne
+#állítani, ezt valahogy ebben a scriptben ellenőrizni kell!
 set -e
 start=$(date +%s)
 cd ./releases

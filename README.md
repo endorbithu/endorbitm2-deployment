@@ -82,6 +82,8 @@ $ ./deploy.sh fast
 
 Az utolsó előtti release-re rollback-kel (ha van minimum 2db release), és törli is az utolsó release-t.  
 (További részletek lsd. fájlban a commentek)
+TODO: ha bármilyen upgradeSchema UpgradeData változás van, annál nem lehet rollbackelni, mert a schemát is vissza kéne
+állítani, ezt valahogy ellenőrizni kell és lekezelni.
 
 ```
 $ ./rollback.sh 
