@@ -68,7 +68,9 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
   upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade)
+  echo "./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade"
   echo $upgr
+  echo "---"
 
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun ./../../composertorun dump-autoload -o
@@ -98,6 +100,8 @@ if [[ "$upgr" != *"Nothing to import"* ]]; then
   while IFS= read -r line; do
     rm -rf $line
   done <<<"$deletable"
+else
+  echo "There has not been DB change at setup:upgrade so remain old deploys"
 fi
 
 echo "----------------------------"
