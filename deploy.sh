@@ -67,10 +67,8 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
-  #TODO: megvizsgálni ennek a kimenetét, és ha van benne ilyen, hogy Nothing to import, akkor ne törölje az előző verziókat
-  # ha nincs benne ilyen (tehát db-t érintő változások voltak) akkor törölje,mert nem tudunk ilyenkor rollbackelni,mert db összeakadhat
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
-
+  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade)
+  echo $upgr
 
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun ./../../composertorun dump-autoload -o
@@ -90,6 +88,18 @@ echo "./releases/deploying directory has been renamed to ${dir_name}"
 rm -f ./current
 ln -s ./releases/${dir_name} ./current
 echo "./current symlink has been attached to ./releases/${dir_name} directory"
+
+#Ha volt db módosítás (= setup upgrade-nál nem szerepelt a Nothing to import string a kimenetben, akkor töröljük a
+#az előző deployokat, mert fenn állna a veszély, hoy nem kompatibilis az új db állapottal
+if [[ "$upgr" != *"Nothing to import"* ]]; then
+  echo "There has been DB change at setup:upgrade so delete old deploys"
+  cd ./releases
+  deletable=$(ls -lr | grep -v total | awk '{print $9}' | awk '(NR>1)')
+  while IFS= read -r line; do
+    rm -rf $line
+  done <<<"$deletable"
+fi
+
 echo "----------------------------"
 echo "----------------------------"
 echo "----------------------------"
