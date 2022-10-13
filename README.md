@@ -82,8 +82,8 @@ $ ./deploy.sh fast
 
 Az utolsó előtti release-re rollback-kel (ha van minimum 2db release), és törli is az utolsó release-t.  
 (További részletek lsd. fájlban a commentek)
-TODO: ha bármilyen upgradeSchema UpgradeData változás van, annál nem lehet rollbackelni, mert a schemát is vissza kéne
-állítani, ezt valahogy ellenőrizni kell és lekezelni.
+FONTOS: Ha bármilyen `module.xml` version változás van, abban az esetben nem lehet rollbackelni, tehát ilyen deploynál 
+(`setup:db:status` -nál jelzi, hogy futtassuk a setup:upgradet) az összes előző release-t törölni fogja élesítés után.
 
 ```
 $ ./rollback.sh 
