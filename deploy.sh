@@ -68,8 +68,8 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
   upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status)
+  echo "setup:db:status"
   echo $upgr
-  echo "---"
   if [[ "$upgr" == *"setup:upgrade"* ]]; then
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   fi
@@ -95,8 +95,8 @@ echo "./current symlink has been attached to ./releases/${dir_name} directory"
 
 #Ha volt db módosítás (= setup upgrade-nál nem szerepelt a Nothing to import string a kimenetben, akkor töröljük a
 #az előző deployokat, mert fenn állna a veszély, hoy nem kompatibilis az új db állapottal
-if [[ "$upgr" != *"setup:upgrade"* ]]; then
-  echo "There has been DB change at setup:db:status so delete old deploys"
+if [[ "$upgr" == *"setup:upgrade"* ]]; then
+  echo "There has been DB change at setup:db:status so delete old deploys (because no magento db rollback)"
   cd ./releases
   deletable=$(ls -lr | grep -v total | awk '{print $9}' | awk '(NR>1)')
   while IFS= read -r line; do
