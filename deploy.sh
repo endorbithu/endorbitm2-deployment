@@ -67,10 +67,12 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
-  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade)
-  echo "./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade"
+  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status)
   echo $upgr
   echo "---"
+  if [[ "$upgr" == *"setup:upgrade"* ]]; then
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
+  fi
 
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun ./../../composertorun dump-autoload -o
@@ -93,15 +95,15 @@ echo "./current symlink has been attached to ./releases/${dir_name} directory"
 
 #Ha volt db módosítás (= setup upgrade-nál nem szerepelt a Nothing to import string a kimenetben, akkor töröljük a
 #az előző deployokat, mert fenn állna a veszély, hoy nem kompatibilis az új db állapottal
-if [[ "$upgr" != *"Nothing to import"* ]]; then
-  echo "There has been DB change at setup:upgrade so delete old deploys"
+if [[ "$upgr" != *"setup:upgrade"* ]]; then
+  echo "There has been DB change at setup:db:status so delete old deploys"
   cd ./releases
   deletable=$(ls -lr | grep -v total | awk '{print $9}' | awk '(NR>1)')
   while IFS= read -r line; do
     rm -rf $line
   done <<<"$deletable"
 else
-  echo "There has not been DB change at setup:upgrade so remain old deploys"
+  echo "There has not been DB change at setup:upgrade so old deploys wont be deleted"
 fi
 
 echo "----------------------------"
