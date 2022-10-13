@@ -93,7 +93,7 @@ rm -f ./current
 ln -s ./releases/${dir_name} ./current
 echo "./current symlink has been attached to ./releases/${dir_name} directory"
 
-#Ha volt db módosítás (= setup upgrade-nál nem szerepelt a Nothing to import string a kimenetben, akkor töröljük a
+#Ha volt db módosítás (= setup:db:status -nál szerepel a setup:upgrade
 #az előző deployokat, mert fenn állna a veszély, hoy nem kompatibilis az új db állapottal
 if [[ "$upgr" == *"setup:upgrade"* ]]; then
   echo "There has been DB change at setup:db:status so delete old deploys (because no magento db rollback)"
