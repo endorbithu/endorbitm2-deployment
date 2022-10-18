@@ -70,8 +70,9 @@ if [ "$1" != "fast" ]; then
   upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status)
   echo "setup:db:status"
   echo $upgr
-  if [[ "$upgr" == *"setup:upgrade"* ]]; then ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade; fi
-
+  if [[ "$upgr" == *"setup:upgrade"* ]]; then
+    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
+  fi
 
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun ./../../composertorun dump-autoload -o
