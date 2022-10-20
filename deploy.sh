@@ -69,7 +69,7 @@ if [ "$1" != "fast" ]; then
 
   echo "fuss"
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status
-  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status)
+  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status) || echo "anyad"
   echo "setup:db:status"
   echo $upgr
   if [[ "$upgr" == *"setup:upgrade"* ]]; then
