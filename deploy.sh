@@ -67,11 +67,10 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status || echo "valami"
-  echo "miva"
-  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status) || echo "anyad"
+  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status || echo "") #valamiért nmegszakítja a futást
   echo "setup:db:status"
   echo $upgr
+
   if [[ "$upgr" == *"setup:upgrade"* ]]; then
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   fi
