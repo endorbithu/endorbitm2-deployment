@@ -67,15 +67,15 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
-  echo "fuss"
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status
+  echo "miva"
   upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status) || echo "anyad"
   echo "setup:db:status"
   echo $upgr
   if [[ "$upgr" == *"setup:upgrade"* ]]; then
     ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
   fi
-  echo "fussál vaze"
+
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
   ./../../phptorun ./../../composertorun dump-autoload -o
   ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
