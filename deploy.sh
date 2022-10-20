@@ -67,7 +67,7 @@ if [ "$1" != "fast" ]; then
   ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
   ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
 
-  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status)
+  upgr=`./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status`
   echo "setup:db:status"
   echo $upgr
   if [[ "$upgr" == *"setup:upgrade"* ]]; then
