@@ -34,7 +34,7 @@ config.php-t átmásolni a shared mappába.
 
 ## Linkelt fájlok/mappák
 
-A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a shared
+A linkelt fájlok/mappák, (=amik nincsenek benne a git repoba, hanem a működés során kerül bele tartalom) a `shared`
 mappában vannak.
 
 ```
@@ -45,9 +45,10 @@ mappában vannak.
 ├── pub
 │   ├── media
 │   └── generated -> ide kell beállítani az összes generált cuccot, feed sitemap stb
-└── var
+├── var
+└── logrotate.conf.example
 ```
-
+- logrotate.conf.example alapján tudunk csinálni logrotate configot lsd fájl.
 - sitemap-ot be lehet állítani magento adminban, hogy hova generálja
 - a robots.txt meg dinamikusan generálódik, itt nem kell vele foglalkozni.
 
