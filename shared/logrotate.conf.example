@@ -8,8 +8,8 @@
      #compress
      #delaycompress //az utolsó előttit nem tömöríti
      olddir /home/reseller/public_html/endorbitm2/test/current/var/log/old/
-     dateext
-     dateformat -%Y-%m-%d-%s
+     #dateext
+     #dateformat -%Y-%m-%d-%s
      create 775 username groupnamxe
  }
 
@@ -18,4 +18,7 @@
 # /usr/sbin/logrotate -s /srv/etc/logrotate/logrotate.state /srv/etc/logrotate/logrotate.conf
 
 # maxsize VS size
-# Log files are rotated when they grow bigger than size bytes even before the additionally specified time interval (daily, weekly, monthly, or yearly). The related "size" option is similar except that it is mutually exclusive with the time interval options, and it causes log files to be rotated without regard for the last rotation time. When maxsize is used, both the size and timestamp of a log file are considered.
+# Log files are rotated when they grow bigger than size bytes even before the additionally specified time interval
+# (daily, weekly, monthly, or yearly). The related "size" option is similar except that it is mutually exclusive with
+# the time interval options, and it causes log files to be rotated without regard for the last rotation time.
+# When maxsize is used, both the size and timestamp of a log file are considered.
