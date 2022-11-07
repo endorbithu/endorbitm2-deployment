@@ -13,7 +13,7 @@
      create 775 username groupnamxe
  }
 
-
+# Create directory: /home/reseller/public_html/endorbitm2/test/current/var/log/old/  (auto nem csinálta meg)
 # Add a cron job to run once a day at the correct time:
 # /usr/sbin/logrotate -s /srv/etc/logrotate/logrotate.state /srv/etc/logrotate/logrotate.conf
 
