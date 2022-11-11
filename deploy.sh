@@ -31,7 +31,7 @@ echo "Git repo has been updated"
 if [ "$1" != "fast" ]; then
   echo "----------------------------"
   echo "composer install..."
-  ./../phptorun ./../composertorun install
+  ./../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./../composertorun install
   echo "composer done"
 fi
 
@@ -76,7 +76,7 @@ if [ "$1" != "fast" ]; then
   fi
 
   ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento setup:di:compile
-  ./../../phptorun ./../../composertorun dump-autoload -o
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./../../composertorun dump-autoload -o
   ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento setup:static-content:deploy -f
   ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento maintenance:disable
   dtend=$(date +%s)
