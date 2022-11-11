@@ -64,25 +64,25 @@ if [ "$1" != "fast" ]; then
   echo "----------------------------"
   echo "Magento operations are running..."
   dtstart=$(date +%s)
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:enable
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento maintenance:enable
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento cache:clean
 
-  upgr=$(./../../phptorun -dmemory_limit=-1 ./bin/magento setup:db:status || echo "") #valamiért nmegszakítja a futást
+  upgr=$(./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento setup:db:status || echo "") #valamiért nmegszakítja a futást
   echo "setup:db:status"
   echo $upgr
 
   if [[ "$upgr" == *"setup:upgrade"* ]]; then
-    ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:upgrade
+    ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento setup:upgrade
   fi
 
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:di:compile
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento setup:di:compile
   ./../../phptorun ./../../composertorun dump-autoload -o
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento setup:static-content:deploy -f
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento maintenance:disable
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento setup:static-content:deploy -f
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento maintenance:disable
   dtend=$(date +%s)
   echo "Magento operations have been finished"
 else
-  ./../../phptorun -dmemory_limit=-1 ./bin/magento cache:clean
+  ./../../phptorun -dmemory_limit=-1 -ddisplay_errors=1 ./bin/magento cache:clean
 fi
 cd ../..
 
