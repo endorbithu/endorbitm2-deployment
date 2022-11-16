@@ -1,6 +1,6 @@
 # Magento 2 Deployment
 
-agento 2 deployment / rollbacking
+Magento 2 deployment / rollbacking
 
 ## PHP beállítása
 
@@ -84,7 +84,7 @@ $ ./deploy.sh fast
 Az utolsó előtti release-re rollback-kel (ha van minimum 2db release), és törli is az utolsó release-t.  
 (További részletek lsd. fájlban a commentek)
 FONTOS: Ha bármilyen `module.xml` version változás van, abban az esetben nem lehet rollbackelni, tehát ilyen deploynál 
-(`setup:db:status` -nál jelzi, hogy futtassuk a setup:upgradet) az összes előző release-t törölni fogja élesítés után.
+(amikor a `setup:db:status` -nál jelzi, hogy futtassuk a setup:upgradet) az összes előző release-t törölni fogja élesítés után.
 
 ```
 $ ./rollback.sh 
